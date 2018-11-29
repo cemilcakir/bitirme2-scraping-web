@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="text-xs-center mb-2">
-      <v-chip label class="teal darken-1 white--text">Geçmişinize göre bakmanızı önerdiğimiz ürünler aşağıdadır.</v-chip>
+      <v-chip label class="teal darken-1 white--text">Aradığınız ürünler aşağıdadır.</v-chip>
     </div>
     <List />
   </div>
