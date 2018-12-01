@@ -1,99 +1,45 @@
 <template>
   <div>
-     <v-layout row wrap>
-      <v-flex xs12 sm6 md3>
-        <v-card>
-          <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
-            aspect-ratio="2.75"
-            height=250
-          ></v-img>
-
-          <v-card-title primary-title>
-            <div>
-              <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
-              <div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div>
-            </div>
-          </v-card-title>
-
+    <v-layout row wrap>    
+      <v-flex xs12 sm6 md3 v-for="product in products" v-bind:key="product.productLink" @click="goToProductDet($event, product.productLink)">
+        <v-card height="100%" class="flexcard">
+          <v-img v-bind:src="product.productImage" height=250></v-img>
+          <v-card-text>
+            <div>{{ product.productName }}</div>
+          </v-card-text>
           <v-card-actions>
-            <v-btn flat color="teal">Share</v-btn>
-            <v-btn flat color="teal">Explore</v-btn>
+             <v-spacer></v-spacer>
+            <v-chip flat color="teal lighten-1">{{ product.productPrice.split("K")[0].trim() }}</v-chip>
+            <v-spacer></v-spacer>
+            <v-chip flat color="teal lighten-1">{{ product.siteName }}</v-chip>
+             <v-spacer></v-spacer>
           </v-card-actions>
         </v-card>
       </v-flex>
-      <v-flex xs12 sm6 md3>
-        <v-card>
-          <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
-            aspect-ratio="2.75"
-            height=250
-          ></v-img>
-
-          <v-card-title primary-title>
-            <div>
-              <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
-              <div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div>
-            </div>
-          </v-card-title>
-
-          <v-card-actions>
-            <v-btn flat color="teal">Share</v-btn>
-            <v-btn flat color="teal">Explore</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-flex>
-            <v-flex xs12 sm6 md3>
-        <v-card>
-          <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
-            aspect-ratio="2.75"
-            height=250
-          ></v-img>
-
-          <v-card-title primary-title>
-            <div>
-              <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
-              <div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div>
-            </div>
-          </v-card-title>
-
-          <v-card-actions>
-            <v-btn flat color="teal">Share</v-btn>
-            <v-btn flat color="teal">Explore</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-flex>
-      <v-flex xs12 sm md3>
-        <v-card>
-          <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
-            aspect-ratio="2.75"
-            height=250
-          ></v-img>
-
-          <v-card-title primary-title>
-            <div>
-              <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
-              <div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div>
-            </div>
-          </v-card-title>
-
-          <v-card-actions>
-            <v-btn flat color="teal">Share</v-btn>
-            <v-btn flat color="teal">Explore</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-flex>
-  </v-layout>
+    </v-layout>
   </div>
 </template>
 
 <script>
-  
-
   export default {
-    components: {
+    props: ["products"],
+    methods: {
+      goToProductDet(event, link) {
+        event.preventDefault()
+        this.$router.push({
+          path: '/detail',
+          query: {
+            link: link
+          }
+        })
+      }
     }
   }
 </script>
+
+<style scoped>
+.flexcard {
+  display: flex;
+  flex-direction: column;
+}
+</style>
