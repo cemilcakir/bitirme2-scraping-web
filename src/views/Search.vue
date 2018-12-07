@@ -492,7 +492,7 @@
     watch: {
       '$route'(to, from) {
         let query = to.query.search
-        let as = this.search(query).then((response) => {
+        this.search(query).then((response) => {
           this.result = response
         })
       }
