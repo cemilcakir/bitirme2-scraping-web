@@ -26,6 +26,7 @@
 
 <script>
   import axios from 'axios'
+  import values from '../../Values.js'
 
   export default {
     data() {
@@ -35,56 +36,8 @@
     },
     mounted: async function () {
       const link = this.$route.query.link
-      //const response = await axios.get("http://localhost:3000/api/search/detail?url=" + link)
-      this.detail = {
-        "name": "Birlik Oyuncak Murat 124 Sesli ve Işıklı Metal Araba",
-        "price": "29,25TL(/adet)",
-        "images": ["https://productimages.hepsiburada.net/s/1/500/9534085005362.jpg",
-          "https://productimages.hepsiburada.net/s/1/80/9534084972594.jpg",
-          "https://productimages.hepsiburada.net/s/1/80/9534085005362.jpg",
-          "https://productimages.hepsiburada.net/s/1/500/9534084972594.jpg",
-          "https://productimages.hepsiburada.net/s/1/500/9534085005362.jpg"
-        ],
-        "details": [{
-            "title": "Marka",
-            "value": "Birlik Oyuncak"
-          }, {
-            "title": "Garanti Süresi (Ay)",
-            "value": "12"
-          }, {
-            "title": "Yurt Dışı Satış",
-            "value": "Yok"
-          }, {
-            "title": "Stok Kodu",
-            "value": "HBV000002I3ND"
-          },
-          {
-            "title": "Marka",
-            "value": "Birlik Oyuncak"
-          }, {
-            "title": "Garanti Süresi (Ay)",
-            "value": "12"
-          }, {
-            "title": "Yurt Dışı Satış",
-            "value": "Yok"
-          }, {
-            "title": "Stok Kodu",
-            "value": "HBV000002I3ND"
-          }, {
-            "title": "Marka",
-            "value": "Birlik Oyuncak"
-          }, {
-            "title": "Garanti Süresi (Ay)",
-            "value": "12"
-          }, {
-            "title": "Yurt Dışı Satış",
-            "value": "Yok"
-          }, {
-            "title": "Stok Kodu",
-            "value": "HBV000002I3ND"
-          }
-        ]
-      }
+      const response = await axios.get(values.ip + "/api/search/detail?url=" + link)
+      this.detail = response.data
     }
   }
 </script>

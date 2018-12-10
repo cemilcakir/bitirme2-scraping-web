@@ -91,11 +91,12 @@
         this.$emit('newSearch', this.searchText)
       },
       search: async () => {
-        const response = await axios.get("http://localhost:3000/api/history")
+        const response = await axios.get(values.ip + "api/history")
+        console.log(response.data)
         return response.data
       },
       searchByHistory: async function () {
-        const response = await axios.get("http://localhost:3000/api/history/search")
+        const response = await axios.get(values.ip + "api/history/search")
         this.products = response.data.data
       },
       newSearch: function (event, query) {

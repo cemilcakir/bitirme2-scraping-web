@@ -12,6 +12,7 @@
   import List from '../components/List'
   import axios from 'axios'
   import FilterMenu from '../components/Filter'
+  import values from '../../Values.js'
 
   export default {
     components: {
@@ -26,7 +27,7 @@
     },
     methods: {
       searchByHistory: async function () {
-        const response = await axios.get("http://localhost:3000/api/history/search")
+        const response = await axios.get(values.ip + "/api/history/search")
         this.products = response.data.data
         this.productsResponse = this.products.slice()
       },

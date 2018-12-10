@@ -2,6 +2,7 @@
 node_modules
 /dist
 README.md
+Values.js
 # local env files
 .env.local
 .env.*.local
