@@ -74,6 +74,7 @@
 
 <script>
   import axios from 'axios'
+  import values from '../../Values.js'
 
   export default {
     data() {
@@ -91,12 +92,11 @@
         this.$emit('newSearch', this.searchText)
       },
       search: async () => {
-        const response = await axios.get(values.ip + "api/history")
-        console.log(response.data)
+        const response = await axios.get(values.ip + "/api/history")
         return response.data
       },
       searchByHistory: async function () {
-        const response = await axios.get(values.ip + "api/history/search")
+        const response = await axios.get(values.ip + "/api/history/search")
         this.products = response.data.data
       },
       newSearch: function (event, query) {
