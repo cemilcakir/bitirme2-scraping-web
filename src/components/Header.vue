@@ -38,6 +38,12 @@
               </v-list-tile-action>
               <v-list-tile-title class="white--text" @click="goToHome()">Anasayfa</v-list-tile-title>
             </v-list-tile>
+            <v-list-tile>
+              <v-list-tile-action>
+                <v-icon>show_chart</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-title class="white--text" @click="goToAnalysis()">İstatistikler</v-list-tile-title>
+            </v-list-tile>
             <v-list-group prepend-icon="history" value="true">
               <v-list-tile slot="activator">
                 <v-list-tile-title class="white--text">Geçmiş</v-list-tile-title>
@@ -122,6 +128,13 @@
       goToHome: function () {
         this.$router.push({
           path: '/'
+        });
+        this.drawer = false;
+        this.searchText = '';
+      },
+      goToAnalysis: function () {
+        this.$router.push({
+          path: '/analysis'
         });
         this.drawer = false;
         this.searchText = '';
