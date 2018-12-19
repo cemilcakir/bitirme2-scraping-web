@@ -42,7 +42,19 @@
               <v-list-tile-action>
                 <v-icon>show_chart</v-icon>
               </v-list-tile-action>
-              <v-list-tile-title class="white--text" @click="goToAnalysis()">İstatistikler</v-list-tile-title>
+              <v-list-tile-title class="white--text" @click="goToAnalysis()">İllere Göre İstatistikler</v-list-tile-title>
+            </v-list-tile>
+            <v-list-tile>
+              <v-list-tile-action>
+                <v-icon>show_chart</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-title class="white--text" @click="goToTops()">Enler</v-list-tile-title>
+            </v-list-tile>
+            <v-list-tile>
+              <v-list-tile-action>
+                <v-icon>show_chart</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-title class="white--text" @click="goToMonths()">Aylara Göre İstatistikler</v-list-tile-title>
             </v-list-tile>
             <v-list-group prepend-icon="history" value="true">
               <v-list-tile slot="activator">
@@ -135,6 +147,20 @@
       goToAnalysis: function () {
         this.$router.push({
           path: '/analysis'
+        });
+        this.drawer = false;
+        this.searchText = '';
+      },
+      goToTops: function () {
+        this.$router.push({
+          path: '/analysis/tops'
+        });
+        this.drawer = false;
+        this.searchText = '';
+      },
+      goToMonths: function () {
+        this.$router.push({
+          path: '/analysis/tops/months'
         });
         this.drawer = false;
         this.searchText = '';

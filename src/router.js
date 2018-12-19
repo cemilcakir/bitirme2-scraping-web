@@ -35,6 +35,22 @@ export default new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/Analysis.vue')
+    },
+    {
+      path: '/analysis/tops',
+      name: 'analysisTop',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "about" */ './views/TopAnalysis.vue')
+    },
+    {
+      path: '/analysis/tops/months',
+      name: 'analysisTopMonths',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "about" */ './views/TopAnalysisForMonths.vue')
     }
   ]
 })
