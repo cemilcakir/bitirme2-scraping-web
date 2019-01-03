@@ -34,7 +34,7 @@
       filter: function (filterValue) {
         for(var filter of filterValue) {
           if(filter) {
-            if (filter != "up" && filter != "down") {
+            if (filter != "up" && filter != "down" && !filter.includes("min") && !filter.includes("max")) {
               var filteredProducts = []
               for(var pro of this.productsResponse) {
                 for(var filter of filterValue) {
@@ -46,6 +46,8 @@
             }
           }
         }
+        var min
+        var max
         for(var filter of filterValue) {
           if (filter == "up") {
             this.products.sort((a, b) => (parseInt(a.productPrice.split("K")[0].trim().split("TL")[0].trim()) > parseInt(b.productPrice.split("K")[0].trim().split("TL")[0].trim())) ? 1 : ((parseInt(b.productPrice.split("K")[0].trim().split("TL")[0].trim()) > parseInt(a.productPrice.split("K")[0].trim().split("TL")[0].trim())) ? -1 : 0));
@@ -53,8 +55,38 @@
           else if (filter == "down") {
             this.products.sort((a, b) => (parseInt(a.productPrice.split("K")[0].trim().split("TL")[0].trim()) > parseInt(b.productPrice.split("K")[0].trim().split("TL")[0].trim())) ? 1 : ((parseInt(b.productPrice.split("K")[0].trim().split("TL")[0].trim()) > parseInt(a.productPrice.split("K")[0].trim().split("TL")[0].trim())) ? -1 : 0)).reverse();
           }
+          else if (filter.includes("min")) {
+            min = filter.substring(4)
+          }
+          else if (filter.includes("max")) {
+            max = filter.substring(4)
+          }
         }
-        if(filterValue.length == 0)
+
+        if(max != 0) {
+          var filteredProducts = []
+          for(var product of this.products) {
+            var price = parseInt(product.productPrice.split("K")[0].trim().split("TL")[0].trim())
+            if(price > min & price < max) {
+              filteredProducts.push(product)
+            }
+          }
+
+          this.products = filteredProducts
+        }
+        else {
+          var filteredProducts = []
+          for(var product of this.products) {
+            var price = parseInt(product.productPrice.split("K")[0].trim().split("TL")[0].trim())
+            if(price > min) {
+              filteredProducts.push(product)
+            }
+          }
+
+          this.products = filteredProducts
+        }
+
+        if(filterValue.length == 2)
           this.products = this.productsResponse
       }
     },

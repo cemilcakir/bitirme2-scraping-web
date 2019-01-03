@@ -31,9 +31,10 @@
         return response.data.response
       },
       filter: function (filterValue) {
+        console.log(filterValue)
         for(var filter of filterValue) {
           if(filter) {
-            if (filter != "up" && filter != "down") {
+            if (filter != "up" && filter != "down" && !filter.includes("min") && !filter.includes("max")) {
               var filteredProducts = []
               for(var pro of this.productsResponse) {
                 for(var filter of filterValue) {
@@ -45,6 +46,8 @@
             }
           }
         }
+        var min
+        var max
         for(var filter of filterValue) {
           if (filter == "up") {
             this.products.sort((a, b) => (parseInt(a.productPrice.split("K")[0].trim().split("TL")[0].trim()) > parseInt(b.productPrice.split("K")[0].trim().split("TL")[0].trim())) ? 1 : ((parseInt(b.productPrice.split("K")[0].trim().split("TL")[0].trim()) > parseInt(a.productPrice.split("K")[0].trim().split("TL")[0].trim())) ? -1 : 0));
@@ -52,10 +55,67 @@
           else if (filter == "down") {
             this.products.sort((a, b) => (parseInt(a.productPrice.split("K")[0].trim().split("TL")[0].trim()) > parseInt(b.productPrice.split("K")[0].trim().split("TL")[0].trim())) ? 1 : ((parseInt(b.productPrice.split("K")[0].trim().split("TL")[0].trim()) > parseInt(a.productPrice.split("K")[0].trim().split("TL")[0].trim())) ? -1 : 0)).reverse();
           }
+          else if (filter.includes("min")) {
+            min = parseInt(filter.substring(4))
+          }
+          else if (filter.includes("max")) {
+            max = parseInt(filter.substring(4))
+          }
         }
-        if(filterValue.length == 0)
-          this.products = this.productsResponse
+
+        if(max != 0) {
+          var filteredProducts = []
+          for(var product of this.products) {
+            var price = parseInt(product.productPrice.split("K")[0].trim().split("TL")[0].trim())
+            if(price > min & price < max) {
+              console.log(product)
+              filteredProducts.push(product)
+            }
+          }
+
+          this.products = filteredProducts
+        }
+        else {
+          var filteredProducts = []
+          for(var product of this.products) {
+            var price = parseInt(product.productPrice.split("K")[0].trim().split("TL")[0].trim())
+            if(price > min) {
+              filteredProducts.push(product)
+            }
+          }
+
+          this.products = filteredProducts
+        }
+
+        // if(filterValue.length == 2)
+        //   this.products = this.productsResponse
       }
+      // filter: function (filterValue) {
+      //   for(var filter of filterValue) {
+      //     if(filter) {
+      //       if (filter != "up" && filter != "down") {
+      //         var filteredProducts = []
+      //         for(var pro of this.productsResponse) {
+      //           for(var filter of filterValue) {
+      //             if(pro.siteName.includes(filter))
+      //               filteredProducts.push(pro)
+      //           }
+      //         }
+      //         this.products = filteredProducts
+      //       }
+      //     }
+      //   }
+      //   for(var filter of filterValue) {
+      //     if (filter == "up") {
+      //       this.products.sort((a, b) => (parseInt(a.productPrice.split("K")[0].trim().split("TL")[0].trim()) > parseInt(b.productPrice.split("K")[0].trim().split("TL")[0].trim())) ? 1 : ((parseInt(b.productPrice.split("K")[0].trim().split("TL")[0].trim()) > parseInt(a.productPrice.split("K")[0].trim().split("TL")[0].trim())) ? -1 : 0));
+      //     }
+      //     else if (filter == "down") {
+      //       this.products.sort((a, b) => (parseInt(a.productPrice.split("K")[0].trim().split("TL")[0].trim()) > parseInt(b.productPrice.split("K")[0].trim().split("TL")[0].trim())) ? 1 : ((parseInt(b.productPrice.split("K")[0].trim().split("TL")[0].trim()) > parseInt(a.productPrice.split("K")[0].trim().split("TL")[0].trim())) ? -1 : 0)).reverse();
+      //     }
+      //   }
+      //   if(filterValue.length == 0)
+      //     this.products = this.productsResponse
+      // }
     },
     mounted() {
       let query = this.$route.query.search;
