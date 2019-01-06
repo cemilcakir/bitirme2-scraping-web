@@ -55,17 +55,26 @@
     },
     methods: {
       filter: function() {
-        for(var filter of this.filters) {
-          if(filter.substring(0,3) == "min") {
-            this.filters.pop(filter)
-          }
-          if(filter.substring(0,3) == "max") {
-            this.filters.pop(filter)
-          }
+        this.filters.forEach(filter => {
+          if(filter)
+            if(filter.includes("min-"))
+              this.filters.splice(this.filters.indexOf(filter), 1);
+        });
+         this.filters.forEach(filter => {
+           if(filter)
+            if(filter.includes("max-"))
+              this.filters.splice(this.filters.indexOf(filter), 1);
+        });
+
+        if(parseInt(this.min) > parseInt(this.max)) {
+          this.filters.push("max-" + this.min)
+          this.filters.push("min-" + this.max)
+        }
+        else {
+          this.filters.push("max-" + this.max)
+          this.filters.push("min-" + this.min)
         }
 
-        this.filters.push("min-" + this.min)
-        this.filters.push("max-" + this.max)
 
         this.$emit('filter', this.filters)
         this.menu = false
@@ -74,8 +83,6 @@
         this.filters = []
         this.min = 0
         this.max = 0
-        this.filters.push("min-" + this.min)
-        this.filters.push("max-" + this.max)
 
         this.$emit('filter', this.filters)
         this.menu = false
@@ -83,7 +90,6 @@
     },
      watch: {
       filters: function (filter) {
-        console.log(filter)
         if(filter.includes("up") && filter.includes("down")) {
           if(filter.indexOf("up") < filter.indexOf("down"))
             delete filter[filter.indexOf("up")]
