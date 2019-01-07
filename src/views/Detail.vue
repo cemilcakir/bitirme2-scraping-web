@@ -1,7 +1,7 @@
 <template>
   <v-content>
 
-    <v-carousel height="400">
+    <v-carousel height="25%">
       <v-carousel-item v-for="img in detail.images" :key="img" :src="img" reverse-transition="fade" transition="fade"></v-carousel-item>
     </v-carousel>
 

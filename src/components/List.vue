@@ -3,7 +3,8 @@
     <v-layout row wrap>    
       <v-flex xs12 sm6 md3 v-for="product in pageContent" v-bind:key="product.productLink" @click="goToProductDet($event, product.productLink)">
         <v-card height="100%" class="flexcard">
-          <v-img v-bind:src="product.productImage" aspect-ratio="1.4"></v-img>
+          <v-img v-bind:src="product.productImage" aspect-ratio="0.8" v-if="product.siteName != 'n11'"></v-img>
+          <v-img v-bind:src="require('../assets/n11.png')" aspect-ratio="0.8" v-else></v-img>
           <v-card-text>
             <div>{{ product.productName }}</div>
           </v-card-text>
